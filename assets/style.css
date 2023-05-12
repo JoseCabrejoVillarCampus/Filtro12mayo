@@ -7,11 +7,16 @@ body{
 #contenedor{
     display: flex;
     flex-direction: column;
-    justify-content: left;
+    justify-items: center;
 }
+
 #contenedor2{
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
 }
 
 
+#pri{
+    margin: auto;
+}

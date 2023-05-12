@@ -154,7 +154,7 @@ export default class myTabla extends HTMLElement {
                 <th>${user.edad}</th>
                 <th>${user.email}</th>
                 <th>${user.direccion}</th>
-                <th>${user.fecha_de_nacimineto}</th>
+                <th>${user.fecha_de_nacimiento}</th>
                 <th>${user.numero_de_identificacion}</th>
                 <th>${user.fecha_de_ingreso_al_programa}</th>
                 <th>${user.teamId}</th>
@@ -173,7 +173,7 @@ export default class myTabla extends HTMLElement {
                 throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
             }
 
-            const filteredData = data.filter(user => user.fecha_de_ingreso === "enero");
+            const filteredData = data.filter(user => user.fecha_de_ingreso <= "2014-12-01");
 
             let plantilla = `
             <thead>
@@ -199,7 +199,7 @@ export default class myTabla extends HTMLElement {
                         <th>${user.edad}</th>
                         <th>${user.email}</th>
                         <th>${user.direccion}</th>
-                        <th>${user.fecha_de_nacimineto}</th>
+                        <th>${user.fecha_de_nacimiento}</th>
                         <th>${user.numero_de_identificacion}</th>
                         <th>${user.fecha_de_ingreso_al_programa}</th>
                         <th>${user.teamId}</th>
@@ -222,7 +222,7 @@ export default class myTabla extends HTMLElement {
                 throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
             }
 
-            const filteredData1 = data.filter(user => user.teamId === 3);
+            const filteredData1 = data.filter(user => user.teamId === "3");
 
             let plantilla = `
             <thead>
@@ -249,7 +249,7 @@ export default class myTabla extends HTMLElement {
             <th>${user.edad}</th>
             <th>${user.email}</th>
             <th>${user.direccion}</th>
-            <th>${user.fecha_de_nacimineto}</th>
+            <th>${user.fecha_de_nacimiento}</th>
             <th>${user.numero_de_identificacion}</th>
             <th>${user.fecha_de_ingreso_al_programa}</th>
             <th>${user.teamId}</th>

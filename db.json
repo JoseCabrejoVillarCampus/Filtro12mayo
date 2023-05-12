@@ -9,7 +9,7 @@
       "fecha_de_nacimiento": "852",
       "numero_de_identificacion": "8655",
       "fecha_de_ingreso_al_programa": "faprilebrero",
-      "teamId": "3"
+      "teamId": "2"
     },
     {
       "id": "5",
@@ -25,13 +25,24 @@
     {
       "id": "1",
       "nombre": "jose",
-      "edad": "sda",
-      "email": "asda",
-      "direccion": "asd",
-      "fecha_de_nacimiento": "dasd",
-      "numero_de_identificacion": "dasd",
-      "fecha_de_ingreso_al_programa": "asdada",
-      "teamId": "2"
+      "edad": "30",
+      "email": "cabre920903@gmail.com",
+      "direccion": "marsellaReal",
+      "fecha_de_nacimiento": "1992-03-09",
+      "numero_de_identificacion": "1098726726",
+      "fecha_de_ingreso_al_programa": "2023-02-06",
+      "teamId": "1"
+    },
+    {
+      "id": "2",
+      "nombre": "Jhon",
+      "edad": "19",
+      "email": "jhon@gmail.com",
+      "direccion": "vereda",
+      "fecha_de_nacimiento": "2020-03-08",
+      "numero_de_identificacion": "85246",
+      "fecha_de_ingreso_al_programa": "2023-03-05",
+      "teamId": "3"
     }
   ],
   "teams": [

@@ -8,7 +8,7 @@ const getReclutaAll = async () => {
         method: "GET",
         headers: headers
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas?_expand=teamId`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/reclutas?_expand=team`, config)).json();
 }
 //http://localhost:${puerto}/teams?_embed=reclutas
 const postRecluta = async (arg) => {
