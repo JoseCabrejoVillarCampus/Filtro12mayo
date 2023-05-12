@@ -1,5 +1,4 @@
 import config from "../config/config.js";
-/* import usuarios from "../api/usuarios.js"; */
 import {
     GET_MODULOSKILL_ALL,
     POST_MODULOSKILL,
@@ -56,7 +55,13 @@ export default class myTabla extends HTMLElement {
         (e.type === "submit") ? this.myworker(e): undefined;
     }
     myworker(e) {
-        let ws = new Worker("../config/ws.js", {
+        let ws = new Worker("../config/wsModulo.js", {
+            type: "module"
+        });
+        let wsa = new Worker("../config/wsModulo.js", {
+            type: "module"
+        });
+        let wsb = new Worker("../config/wsModulo.js", {
             type: "module"
         });
         let data = Object.fromEntries(new FormData(e.target));
@@ -68,97 +73,155 @@ export default class myTabla extends HTMLElement {
             ws.postMessage({
                 type: GET_MODULOSKILL_ALL,
             });
+        } else if (valor === "get2") {
+            wsa.postMessage({
+                type: GET_MODULOSKILL_ALL,
+            });
+        } else if (valor === "get3") {
+            wsb.postMessage({
+                type: GET_MODULOSKILL_ALL,
+            })
         } else if (valor === "post") {
-            const callback = () => {
-                ws.postMessage({
-                    type: GET_MODULOSKILL_ALL,
-                });
-                this.displayDataInTable(); // Llamar a displayDataInTable después del POST
-            };
-
             ws.postMessage({
                 type: POST_MODULOSKILL,
-                arg: data,
-                callback: callback.toString()
+                arg: data
             });
-    } else if (valor === "delete") {
-        ws.postMessage({
-            type: DELETE_MODULOSKILL,
-            arg: data
-        });
-    } else if (valor === "put") {
-        ws.postMessage({
-            type: PUT_MODULOSKILL,
-            arg: data
-        });
-    } else if (valor === "search") {
-        ws.postMessage({
-            type: SEARCH_MODULOSKILL,
-            arg: data.nombre,
-        });
-    }
-
-    ws.addEventListener("message", (e) => {
-        console.log(e.data);
-        this.displayDataInTable(e.data);
-        ws.terminate();
-    });
-}
-
-async displayDataInTable(data) {
-    try {
-        await this.content()
-        const tableBody = this.shadowRoot.querySelector("#myData");
-        console.log('display: ', this.shadowRoot)
-        /* tableBody.innerHTML = ""; */
-
-        if (!Array.isArray(data)) {
-            throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
+        } else if (valor === "delete") {
+            ws.postMessage({
+                type: DELETE_MODULOSKILL,
+                arg: data
+            });
+        } else if (valor === "put") {
+            ws.postMessage({
+                type: PUT_MODULOSKILL,
+                arg: data
+            });
+        } else if (valor === "search") {
+            ws.postMessage({
+                type: SEARCH_MODULOSKILL,
+                arg: data.id
+            });
         }
 
-        const sortedData = data.sort((a, b) => a.id - b.id);
-        console.log(data);
-
-        sortedData.forEach((user) => {
-            const row = document.createElement("tr");
-
-            const idCell = document.createElement("td");
-            idCell.textContent = user.evaluacion.skill.moduloSkill.id;
-            row.appendChild(idCell);
-
-            const nombreCell = document.createElement("td");
-            nombreCell.textContent = user.evaluacion.skill.moduloSkill.nombre || "";
-            console.log(user.nombre);
-            row.appendChild(nombreCell);
-
-
-            
-
-            /* const deleteCell = document.createElement("td");
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Eliminar";
-            deleteButton.addEventListener("submit", () => {
-                this.deleteUser(user);
-            });
-            deleteCell.appendChild(deleteButton);
-            row.appendChild(deleteCell);
-
-            const editCell = document.createElement("td");
-            const editButton = document.createElement("button");
-            editButton.textContent = "Actulizar";
-            editButton.addEventListener("submit", () => {
-                this.putUser(user);
-            });
-            editCell.appendChild(editButton);
-            row.appendChild(editCell); */
-
-            tableBody.appendChild(row);
+        ws.addEventListener("message", (e) => {
+            this.displayDataInTable(e.data);
+            ws.terminate();
         });
-    } catch (error) {
-        console.log(error);
+        wsa.addEventListener("message", (e) => {
+            this.displayDataInTable2(e.data);
+            wsa.terminate();
+        });
+        wsb.addEventListener("message", (e) => {
+            this.displayDataInTable3(e.data);
+            wsb.terminate();
+        });
     }
 
-}
+    async displayDataInTable(data) {
+        try {
+            await this.content()
+            const tableBody = this.shadowRoot.querySelector("#myData");
+
+            if (!Array.isArray(data)) {
+                throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
+            }
+
+            const sortedData = data.sort((a, b) => a.id - b.id);
+
+            let plantilla = `
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Id Skill</th>
+            </tr>
+        </thead>
+        `;
+            sortedData.forEach((user) => {
+                console.log();
+                plantilla += `
+                <tr>
+                <th>${user.id}</th>
+                <th>${user.nombre}</th>
+                <th>${user.skillId}</th>
+            </tr> 
+            `;
+                tableBody.innerHTML = plantilla;
+            });
+        } catch (error) {}
+    }
+    async displayDataInTable2(data) {
+        try {
+            await this.content()
+            const tableBody = this.shadowRoot.querySelector("#myData");
+
+            if (!Array.isArray(data)) {
+                throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
+            }
+
+            const filteredData = data.filter(user => user.skillId === "1");
+
+            let plantilla = `
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Id Skill</th>
+            </tr>
+        </thead>
+            `;
+
+            filteredData.forEach((user) => {
+                plantilla += `
+                    <tr>
+                        <th>${user.id}</th>
+                        <th>${user.nombre}</th>
+                        <th>${user.skillId}</th>
+                    </tr> 
+                `;
+            });
+
+            tableBody.innerHTML = plantilla;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    async displayDataInTable3(data) {
+        try {
+            await this.content()
+            const tableBody = this.shadowRoot.querySelector("#myData");
+            /* tableBody.innerHTML = ""; */
+
+            if (!Array.isArray(data)) {
+                throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
+            }
+
+            const filteredData1 = data.filter(user => user.nombre === "Poo");
+
+            let plantilla = `
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Id Skill</th>
+                </tr>
+            </thead>
+        `;
+
+
+            filteredData1.forEach((user) => {
+                plantilla += `
+            <tr>
+            <th>${user.id}</th>
+            <th>${user.nombre}</th>
+            <th>${user.skillId}</th>
+        </tr> 
+            `;
+                tableBody.innerHTML = plantilla;
+            });
+        } catch (error) {}
+
+    }
 
 static get observedAttributes() {
     return ['data-accion'];

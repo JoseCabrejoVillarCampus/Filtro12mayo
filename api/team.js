@@ -4,7 +4,7 @@ let headers = new Headers({
 let puerto = 4001;
 
 const postTeam = async (arg) => {
-    arg.user.team.id = (arg.user.team.id) ? arg.user.team.id : Date.now();
+    arg.id = (arg.id) ? arg.id : Date.now();
     let config = {
         method: "POST",
         headers: headers,

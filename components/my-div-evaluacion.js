@@ -56,13 +56,13 @@ export default class myTabla extends HTMLElement {
         (e.type === "submit") ? this.myworker(e): undefined;
     }
     myworker(e) {
-        let ws = new Worker("../config/ws.js", {
+        let ws = new Worker("../config/wsEvaluacion.js", {
             type: "module"
         });
-        let wsa = new Worker("../config/ws.js", {
+        let wsa = new Worker("../config/wsEvaluacion.js", {
             type: "module"
         });
-        let wsb = new Worker("../config/ws.js", {
+        let wsb = new Worker("../config/wsEvaluacion.js", {
             type: "module"
         });
         let data = Object.fromEntries(new FormData(e.target));
@@ -85,6 +85,7 @@ export default class myTabla extends HTMLElement {
         } else if (valor === "post") {
             ws.postMessage({
                 type: POST_EVALUACION,
+                arg: data
             });
         } else if (valor === "delete") {
             ws.postMessage({
@@ -93,7 +94,7 @@ export default class myTabla extends HTMLElement {
             });
         } else if (valor === "put") {
             ws.postMessage({
-                type: PUT_EVALUACION,
+                type: PUT_TEAM,
                 arg: data
             });
         } else if (valor === "search") {
@@ -109,11 +110,11 @@ export default class myTabla extends HTMLElement {
         });
         wsa.addEventListener("message", (e) => {
             this.displayDataInTable2(e.data);
-            ws.terminate();
+            wsa.terminate();
         });
         wsb.addEventListener("message", (e) => {
             this.displayDataInTable3(e.data);
-            ws.terminate();
+            wsb.terminate();
         });
     }
 
@@ -131,28 +132,27 @@ export default class myTabla extends HTMLElement {
 
             let plantilla = `
             <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Director</th>
-                    <th>Clasificacion</th>
-                </tr>
-            </thead>
+            <tr>
+                <th>Id</th>
+                <th>Id Recluta</th>
+                <th>Nota</th>
+                <th>Id Modulo</th>
+            </tr>
+        </thead>
         `;
             sortedData.forEach((user) => {
+                console.log();
                 plantilla += `
-            <tr>
-            <th>${user.id}</th>
-            <th>${user.nombre}</th>
-            <th>${user.director}</th>
-            <th>${user.clasificacion}</th>
-
-        </tr> 
+                <tr>
+                <th>${user.id}</th>
+                <th>${user.reclutaId}</th>
+                <th>${user.nota}</th>
+                <th>${user.moduloId}</th>
+            </tr> 
             `;
                 tableBody.innerHTML = plantilla;
             });
         } catch (error) {}
-        console.log(data[0].clasificacion);
     }
     async displayDataInTable2(data) {
         try {
@@ -163,26 +163,26 @@ export default class myTabla extends HTMLElement {
                 throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
             }
 
-            const filteredData = data.filter(user => user.clasificacion === "comedia");
+            const filteredData = data.filter(user => user.moduloId === "1");
 
             let plantilla = `
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Director</th>
-                        <th>Clasificacion</th>
-                    </tr>
-                </thead>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Id Recluta</th>
+                <th>Nota</th>
+                <th>Id Modulo</th>
+            </tr>
+        </thead>
             `;
 
             filteredData.forEach((user) => {
                 plantilla += `
                     <tr>
                         <th>${user.id}</th>
-                        <th>${user.nombre}</th>
-                        <th>${user.director}</th>
-                        <th>${user.clasificacion}</th>
+                        <th>${user.reclutaId}</th>
+                        <th>${user.nota}</th>
+                        <th>${user.moduloId}</th>
                     </tr> 
                 `;
             });
@@ -202,15 +202,15 @@ export default class myTabla extends HTMLElement {
                 throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
             }
 
-            const filteredData1 = data.filter(user => user.director === "jose");
+            const filteredData1 = data.filter(user => user.nota === "5");
 
             let plantilla = `
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Director</th>
-                    <th>Clasificacion</th>
+                    <th>Id Recluta</th>
+                    <th>Nota</th>
+                    <th>Id Modulo</th>
                 </tr>
             </thead>
         `;
@@ -219,37 +219,35 @@ export default class myTabla extends HTMLElement {
             filteredData1.forEach((user) => {
                 plantilla += `
             <tr>
-            <th>${user.id}</th>
-            <th>${user.nombre}</th>
-            <th>${user.director}</th>
-            <th>${user.clasificacion}</th>
-
-        </tr> 
+                <th>${user.id}</th>
+                <th>${user.reclutaId}</th>
+                <th>${user.nota}</th>
+                <th>${user.moduloId}</th>
+            </tr> 
             `;
                 tableBody.innerHTML = plantilla;
             });
         } catch (error) {}
 
     }
+    static get observedAttributes() {
+        return ['data-accion'];
+    }
+    attributeChangedCallback(name, old, now) {
+        console.log(name, old, now);
+        console.log(this.dataset.accion);
+    }
+    connectedCallback() {
+        /* const table = new myTabla();
+        table.displayDataInTable(); */
+        /* Promise.resolve(myTabla.components()).then((html) => {
+            this.shadowRoot.innerHTML = html;
+            this.form = this.shadowRoot.querySelector("#myForm");
+            this.form.addEventListener("submit", this.handleEvent.bind(this));
+        });
 
-static get observedAttributes() {
-    return ['data-accion'];
-}
-attributeChangedCallback(name, old, now) {
-    console.log(name, old, now);
-    console.log(this.dataset.accion);
-}
-connectedCallback() {
-    /* const table = new myTabla();
-    table.displayDataInTable(); */
-    /* Promise.resolve(myTabla.components()).then((html) => {
-        this.shadowRoot.innerHTML = html;
-        this.form = this.shadowRoot.querySelector("#myForm");
-        this.form.addEventListener("submit", this.handleEvent.bind(this));
-    });
-
-     */
-}
+         */
+    }
 
 }
 customElements.define(config.name(myTabla.url), myTabla);

@@ -4,7 +4,7 @@ let headers = new Headers({
 let puerto = 4001;
 
 const postModuloSkill = async (arg) => {
-    arg.user.evaluacion.skill.moduloSkill.id = (arg.user.evaluacion.skill.moduloSkill.id) ? arg.user.evaluacion.skill.moduloSkill.id : Date.now();
+    arg.id = (arg.id) ? arg.id : Date.now();
     let config = {
         method: "POST",
         headers: headers,
@@ -17,7 +17,7 @@ const getModuloSkillAll = async () => {
         method: "GET",
         headers: headers
     };
-    return await (await fetch(`http://localhost:${puerto}/modulosSkils?_expand=skill`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/modulos?_expand=skill`, config)).json();
 }
 const deleteModuloSkill = async (arg) => {
     let config = {

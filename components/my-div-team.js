@@ -1,5 +1,4 @@
 import config from "../config/config.js";
-/* import usuarios from "../api/usuarios.js"; */
 import {
     GET_TEAM_ALL,
     POST_TEAM,
@@ -56,13 +55,13 @@ export default class myTabla extends HTMLElement {
         (e.type === "submit") ? this.myworker(e): undefined;
     }
     myworker(e) {
-        let ws = new Worker("../config/ws.js", {
+        let ws = new Worker("../config/wsTeam.js", {
             type: "module"
         });
-        let wsa = new Worker("../config/ws.js", {
+        let wsa = new Worker("../config/wsTeam.js", {
             type: "module"
         });
-        let wsb = new Worker("../config/ws.js", {
+        let wsb = new Worker("../config/wsTeam.js", {
             type: "module"
         });
         let data = Object.fromEntries(new FormData(e.target));
@@ -118,62 +117,112 @@ export default class myTabla extends HTMLElement {
         });
     }
 
-async displayDataInTable(data) {
-    try {
-        await this.content()
-        const tableBody = this.shadowRoot.querySelector("#myData");
-        console.log('display: ', this.shadowRoot)
-        /* tableBody.innerHTML = ""; */
+    async displayDataInTable(data) {
+        try {
+            await this.content()
+            const tableBody = this.shadowRoot.querySelector("#myData");
+            /* tableBody.innerHTML = ""; */
 
-        if (!Array.isArray(data)) {
-            throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
-        }
+            if (!Array.isArray(data)) {
+                throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
+            }
 
-        const sortedData = data.sort((a, b) => a.id - b.id);
-        console.log(data);
+            const sortedData = data.sort((a, b) => a.id - b.id);
 
-        sortedData.forEach((user) => {
-            const row = document.createElement("tr");
-
-            const idCell = document.createElement("td");
-            idCell.textContent = user.team.id;
-            row.appendChild(idCell);
-
-            const nombreCell = document.createElement("td");
-            nombreCell.textContent = user.team.nombre || "";
-            console.log(user.nombre);
-            row.appendChild(nombreCell);
-
-            const trainer_asociadoCell = document.createElement("td");
-            trainer_asociadoCell.textContent = user.team.trainer_asociado || "";
-            row.appendChild(trainer_asociadoCell);
-            
-
-            /* const deleteCell = document.createElement("td");
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Eliminar";
-            deleteButton.addEventListener("submit", () => {
-                this.deleteUser(user);
+            let plantilla = `
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Trainer</th>
+            </tr>
+        </thead>
+        `;
+            sortedData.forEach((user) => {
+                console.log();
+                plantilla += `
+                <tr>
+                <th>${user.id}</th>
+                <th>${user.nombre}</th>
+                <th>${user.trainer_asociado}</th>
+            </tr> 
+            `;
+                tableBody.innerHTML = plantilla;
             });
-            deleteCell.appendChild(deleteButton);
-            row.appendChild(deleteCell);
-
-            const editCell = document.createElement("td");
-            const editButton = document.createElement("button");
-            editButton.textContent = "Actulizar";
-            editButton.addEventListener("submit", () => {
-                this.putUser(user);
-            });
-            editCell.appendChild(editButton);
-            row.appendChild(editCell); */
-
-            tableBody.appendChild(row);
-        });
-    } catch (error) {
-        console.log(error);
+        } catch (error) {}
     }
+    async displayDataInTable2(data) {
+        try {
+            await this.content()
+            const tableBody = this.shadowRoot.querySelector("#myData");
 
-}
+            if (!Array.isArray(data)) {
+                throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
+            }
+
+            const filteredData = data.filter(user => user.nombre === "sputnik");
+
+            let plantilla = `
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Trainer</th>
+            </tr>
+        </thead>
+            `;
+
+            filteredData.forEach((user) => {
+                plantilla += `
+                    <tr>
+                        <th>${user.id}</th>
+                        <th>${user.nombre}</th>
+                        <th>${user.trainer_asociado}</th>
+                    </tr> 
+                `;
+            });
+
+            tableBody.innerHTML = plantilla;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    async displayDataInTable3(data) {
+        try {
+            await this.content()
+            const tableBody = this.shadowRoot.querySelector("#myData");
+            /* tableBody.innerHTML = ""; */
+
+            if (!Array.isArray(data)) {
+                throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
+            }
+
+            const filteredData1 = data.filter(user => user.trainer_asociado === "lolver");
+
+            let plantilla = `
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Trainer</th>
+                </tr>
+            </thead>
+        `;
+
+
+            filteredData1.forEach((user) => {
+                plantilla += `
+            <tr>
+            <th>${user.id}</th>
+            <th>${user.nombre}</th>
+            <th>${user.trainer_asociado}</th>
+        </tr> 
+            `;
+                tableBody.innerHTML = plantilla;
+            });
+        } catch (error) {}
+
+    }
 
 static get observedAttributes() {
     return ['data-accion'];
