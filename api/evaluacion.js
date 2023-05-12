@@ -10,21 +10,21 @@ const postEvaluacion = async (arg) => {
         headers: headers,
         body: JSON.stringify(arg)
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/evaluaciones`, config)).json();
 }
 const getEvaluacionAll = async () => {
     let config = {
         method: "GET",
         headers: headers
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/evaluaciones?_expand=recluta&_expand=modulo`, config)).json();
 }
 const deleteEvaluacion = async (arg) => {
     let config = {
         method: "DELETE",
         headers: headers,
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas/${arg.id}`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/evaluaciones/${arg.id}`, config)).json();
 }
 const putEvaluacion = async (arg) => {
     let config = {
@@ -32,10 +32,10 @@ const putEvaluacion = async (arg) => {
         headers: headers,
         body: JSON.stringify(arg)
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas/${arg.id}`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/evaluaciones/${arg.id}`, config)).json();
 }
 const searchEvaluacion = async (arg) => {
-    const response = await fetch(`http://localhost:${puerto}/reclutas`);
+    const response = await fetch(`http://localhost:${puerto}/evaluaciones`);
     const data = await response.json();
 
     if (response.ok) {

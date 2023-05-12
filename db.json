@@ -1,61 +1,7 @@
 {
   "reclutas": [
     {
-      "id": 2,
-      "nombre": "david",
-      "edad": "22",
-      "email": "dav",
-      "direccion": "casade",
-      "fecha_de_nacimiento": "2002",
-      "numero_de_identificacion": "1858726726",
-      "fecha_de_ingreso_al_programa": "enero",
-      "team": {
-        "id": "1",
-        "nombre": "artemis",
-        "trainer_asociado": "vermer"
-      },
-      "evaluacion": {
-        "id": 2,
-        "nota": 4,
-        "skill": {
-          "id": "1",
-          "nombre": "javascript",
-          "moduloSkill": {
-            "id": "2",
-            "nombre": "workers"
-          }
-        }
-      }
-    },
-    {
-      "id": 3,
-      "nombre": "jose",
-      "edad": "30",
-      "email": "cabr",
-      "direccion": "dasda",
-      "fecha_de_nacimiento": "1992",
-      "numero_de_identificacion": "1098726726",
-      "fecha_de_ingreso_al_programa": "febrero",
-      "team": {
-        "id": "3",
-        "nombre": "sputnik",
-        "trainer_asociado": "migule"
-      },
-      "evaluacion": {
-        "id": 1,
-        "nota": 5,
-        "skill": {
-          "id": "2",
-          "nombre": "java",
-          "moduloSkill": {
-            "id": "1",
-            "nombre": "poo"
-          }
-        }
-      }
-    },
-    {
-      "id": 4,
+      "id": "4",
       "nombre": "diego",
       "edad": "52",
       "email": "dsd",
@@ -63,61 +9,62 @@
       "fecha_de_nacimiento": "852",
       "numero_de_identificacion": "8655",
       "fecha_de_ingreso_al_programa": "faprilebrero",
-      "team": {
-        "id": "3",
-        "nombre": "sputnik",
-        "trainer_asociado": "migule"
-      },
-      "evaluacion": {
-        "id": 1,
-        "nota": 2,
-        "skill": {
-          "id": "2",
-          "nombre": "java",
-          "moduloSkill": {
-            "id": "1",
-            "nombre": "poo"
-          }
-        }
-      }
+      "teamId": "3"
     },
     {
-      "id": 1,
-      "nombre": "juan",
-      "edad": "36",
-      "email": "wsasdaf",
-      "direccion": "qfqfq",
-      "fecha_de_nacimiento": "8545",
-      "numero_de_identificacion": "321",
-      "fecha_de_ingreso_al_programa": "sasss",
-      "team": {
-        "id": "2",
-        "nombre": "artemis",
-        "trainer_asociado": "vermer"
-      },
-      "evaluacion": {
-        "id": 1,
-        "nota": 1,
-        "skill": {
-          "id": "4",
-          "nombre": "html",
-          "moduloSkill": {
-            "id": "5",
-            "nombre": "flexbox"
-          }
-        }
-      }
+      "id": "5",
+      "nombre": "vicky",
+      "edad": "dsrfqsed",
+      "email": "jjnkjn",
+      "direccion": "jn",
+      "fecha_de_nacimiento": "njn",
+      "numero_de_identificacion": "jn",
+      "fecha_de_ingreso_al_programa": "njnn",
+      "teamId": "3"
     },
     {
-      "id": 1683569963644,
-      "nombre": "",
-      "edad": "",
-      "email": "",
-      "direccion": "",
-      "fecha_de_nacimiento": "",
-      "numero_de_identificacion": "",
-      "fecha_de_ingreso_al_programa": "",
-      "team": ""
+      "id": "1",
+      "nombre": "jose",
+      "edad": "sda",
+      "email": "asda",
+      "direccion": "asd",
+      "fecha_de_nacimiento": "dasd",
+      "numero_de_identificacion": "dasd",
+      "fecha_de_ingreso_al_programa": "asdada",
+      "teamId": "2"
+    }
+  ],
+  "teams": [
+    {
+      "id": "3",
+      "nombre": "sputnik",
+      "trainer_asociado": "migule"
+    },
+    {
+      "id": "2",
+      "nombre": "artemis",
+      "trainer_asociado": "lolver"
+    }
+  ],
+  "evaluaciones": [
+    {
+      "id": "1",
+      "reclutaId": "4",
+      "nota": "5",
+      "moduloId": "1"
+    }
+  ],
+  "skills": [
+    {
+      "id": "2",
+      "nombre": "java"
+    }
+  ],
+  "modulos": [
+    {
+      "id": "1",
+      "nombre": "Poo",
+      "skillId": "1"
     }
   ]
 }

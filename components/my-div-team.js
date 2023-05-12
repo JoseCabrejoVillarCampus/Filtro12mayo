@@ -59,6 +59,12 @@ export default class myTabla extends HTMLElement {
         let ws = new Worker("../config/ws.js", {
             type: "module"
         });
+        let wsa = new Worker("../config/ws.js", {
+            type: "module"
+        });
+        let wsb = new Worker("../config/ws.js", {
+            type: "module"
+        });
         let data = Object.fromEntries(new FormData(e.target));
         const {
             valor
@@ -68,42 +74,49 @@ export default class myTabla extends HTMLElement {
             ws.postMessage({
                 type: GET_TEAM_ALL,
             });
+        } else if (valor === "get2") {
+            wsa.postMessage({
+                type: GET_TEAM_ALL,
+            });
+        } else if (valor === "get3") {
+            wsb.postMessage({
+                type: GET_TEAM_ALL,
+            })
         } else if (valor === "post") {
-            const callback = () => {
-                ws.postMessage({
-                    type: GET_TEAM_ALL,
-                });
-                this.displayDataInTable(); // Llamar a displayDataInTable después del POST
-            };
-
             ws.postMessage({
                 type: POST_TEAM,
-                arg: data.team,
-                callback: callback.toString()
+                arg: data
             });
-    } else if (valor === "delete") {
-        ws.postMessage({
-            type: DELETE_TEAM,
-            arg: data
+        } else if (valor === "delete") {
+            ws.postMessage({
+                type: DELETE_TEAM,
+                arg: data
+            });
+        } else if (valor === "put") {
+            ws.postMessage({
+                type: PUT_TEAM,
+                arg: data
+            });
+        } else if (valor === "search") {
+            ws.postMessage({
+                type: SEARCH_TEAM,
+                arg: data.id
+            });
+        }
+
+        ws.addEventListener("message", (e) => {
+            this.displayDataInTable(e.data);
+            ws.terminate();
         });
-    } else if (valor === "put") {
-        ws.postMessage({
-            type: PUT_TEAM,
-            arg: data
+        wsa.addEventListener("message", (e) => {
+            this.displayDataInTable2(e.data);
+            wsa.terminate();
         });
-    } else if (valor === "search") {
-        ws.postMessage({
-            type: SEARCH_TEAM,
-            arg: data.nombre,
+        wsb.addEventListener("message", (e) => {
+            this.displayDataInTable3(e.data);
+            wsb.terminate();
         });
     }
-
-    ws.addEventListener("message", (e) => {
-        console.log(e.data);
-        this.displayDataInTable(e.data);
-        ws.terminate();
-    });
-}
 
 async displayDataInTable(data) {
     try {

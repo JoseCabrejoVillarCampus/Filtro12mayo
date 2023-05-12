@@ -10,21 +10,21 @@ const postSkill = async (arg) => {
         headers: headers,
         body: JSON.stringify(arg)
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/skills`, config)).json();
 }
 const getSkillAll = async () => {
     let config = {
         method: "GET",
         headers: headers
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/skills`, config)).json();
 }
 const deleteSkill = async (arg) => {
     let config = {
         method: "DELETE",
         headers: headers,
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas/${arg.id}`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/skills/${arg.id}`, config)).json();
 }
 const putSkill = async (arg) => {
     let config = {
@@ -32,10 +32,10 @@ const putSkill = async (arg) => {
         headers: headers,
         body: JSON.stringify(arg)
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas/${arg.id}`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/skills/${arg.id}`, config)).json();
 }
 const searchSkill = async (arg) => {
-    const response = await fetch(`http://localhost:${puerto}/reclutas`);
+    const response = await fetch(`http://localhost:${puerto}/skills`);
     const data = await response.json();
 
     if (response.ok) {

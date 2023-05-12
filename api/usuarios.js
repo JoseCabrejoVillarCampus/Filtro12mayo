@@ -3,19 +3,20 @@ let headers = new Headers({
 });
 let puerto = 4001;
 
-const postRecluta = async (arg) => {
-    arg.id = (arg.id) ? arg.id : Date.now();
-    let config = {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(arg)
-    };
-    return await (await fetch(`http://localhost:${puerto}/reclutas`, config)).json();
-}
 const getReclutaAll = async () => {
     let config = {
         method: "GET",
         headers: headers
+    };
+    return await (await fetch(`http://localhost:${puerto}/reclutas?_expand=teamId`, config)).json();
+}
+//http://localhost:${puerto}/teams?_embed=reclutas
+const postRecluta = async (arg) => {
+        arg.id = (arg.id) ? arg.id : "SIN ID";
+    let config = {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(arg)
     };
     return await (await fetch(`http://localhost:${puerto}/reclutas`, config)).json();
 }

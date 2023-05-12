@@ -10,21 +10,21 @@ const postTeam = async (arg) => {
         headers: headers,
         body: JSON.stringify(arg)
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/teams`, config)).json();
 }
 const getTeamAll = async () => {
     let config = {
         method: "GET",
         headers: headers
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/teams`, config)).json();
 }
 const deleteTeam = async (arg) => {
     let config = {
         method: "DELETE",
         headers: headers,
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas/${arg.id}`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/teams/${arg.id}`, config)).json();
 }
 const putTeam = async (arg) => {
     let config = {
@@ -32,10 +32,10 @@ const putTeam = async (arg) => {
         headers: headers,
         body: JSON.stringify(arg)
     };
-    return await (await fetch(`http://localhost:${puerto}/reclutas/${arg.id}`, config)).json();
+    return await (await fetch(`http://localhost:${puerto}/teams/${arg.id}`, config)).json();
 }
 const searchTeam = async (arg) => {
-    const response = await fetch(`http://localhost:${puerto}/reclutas`);
+    const response = await fetch(`http://localhost:${puerto}/teams`);
     const data = await response.json();
 
     if (response.ok) {
