@@ -64,6 +64,9 @@ export default class myTabla extends HTMLElement {
         let wsb = new Worker("../config/wsTeam.js", {
             type: "module"
         });
+        let wsc = new Worker("../config/wsTeam.js", {
+            type: "module"
+        });
         let data = Object.fromEntries(new FormData(e.target));
         const {
             valor
@@ -79,6 +82,10 @@ export default class myTabla extends HTMLElement {
             });
         } else if (valor === "get3") {
             wsb.postMessage({
+                type: GET_TEAM_ALL,
+            })
+        } else if (valor === "get4") {
+            wsc.postMessage({
                 type: GET_TEAM_ALL,
             })
         } else if (valor === "post") {
@@ -113,6 +120,10 @@ export default class myTabla extends HTMLElement {
         });
         wsb.addEventListener("message", (e) => {
             this.displayDataInTable3(e.data);
+            wsb.terminate();
+        });
+        wsc.addEventListener("message", (e) => {
+            this.displayDataInTable4(e.data);
             wsb.terminate();
         });
     }
@@ -197,7 +208,7 @@ export default class myTabla extends HTMLElement {
                 throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
             }
 
-            const filteredData1 = data.filter(user => user.trainer_asociado === "lolver");
+            const filteredData1 = data.filter(user => user.nombre === "artemis");
 
             let plantilla = `
             <thead>
@@ -211,6 +222,43 @@ export default class myTabla extends HTMLElement {
 
 
             filteredData1.forEach((user) => {
+                plantilla += `
+            <tr>
+            <th>${user.id}</th>
+            <th>${user.nombre}</th>
+            <th>${user.trainer_asociado}</th>
+        </tr> 
+            `;
+                tableBody.innerHTML = plantilla;
+            });
+        } catch (error) {}
+
+    }
+
+    async displayDataInTable4(data) {
+        try {
+            await this.content()
+            const tableBody = this.shadowRoot.querySelector("#myData");
+            /* tableBody.innerHTML = ""; */
+
+            if (!Array.isArray(data)) {
+                throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
+            }
+
+            const filteredData2 = data.filter(user => user.nombre === "apolo");
+
+            let plantilla = `
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Trainer</th>
+                </tr>
+            </thead>
+        `;
+
+
+            filteredData2.forEach((user) => {
                 plantilla += `
             <tr>
             <th>${user.id}</th>

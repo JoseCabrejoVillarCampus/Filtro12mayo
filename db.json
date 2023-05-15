@@ -8,7 +8,7 @@
       "direccion": "fafa",
       "fecha_de_nacimiento": "852",
       "numero_de_identificacion": "8655",
-      "fecha_de_ingreso_al_programa": "faprilebrero",
+      "fecha_de_ingreso_al_programa": "2010-02-06",
       "teamId": "2"
     },
     {
@@ -19,7 +19,7 @@
       "direccion": "jn",
       "fecha_de_nacimiento": "njn",
       "numero_de_identificacion": "jn",
-      "fecha_de_ingreso_al_programa": "njnn",
+      "fecha_de_ingreso_al_programa": "2012-02-06",
       "teamId": "3"
     },
     {
@@ -68,9 +68,19 @@
       "reclutaId": "4",
       "nota": "5",
       "moduloId": "1"
+    },
+    {
+      "id": "2",
+      "reclutaId": "4",
+      "nota": "2",
+      "moduloId": "2"
     }
   ],
   "skills": [
+    {
+      "id": "1",
+      "nombre": "javaScript"
+    },
     {
       "id": "2",
       "nombre": "java"

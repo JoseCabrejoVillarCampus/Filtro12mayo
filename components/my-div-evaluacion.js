@@ -163,7 +163,7 @@ export default class myTabla extends HTMLElement {
                 throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
             }
 
-            const filteredData = data.filter(user => user.moduloId === "1");
+            const filteredData = data.filter(user => user.nota <= "3.5");
 
             let plantilla = `
             <thead>
@@ -202,7 +202,7 @@ export default class myTabla extends HTMLElement {
                 throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
             }
 
-            const filteredData1 = data.filter(user => user.nota === "5");
+            const filteredData1 = data.filter(user => user.nota >= "3.5");
 
             let plantilla = `
             <thead>

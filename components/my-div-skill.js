@@ -193,7 +193,7 @@ export default class myTabla extends HTMLElement {
                 throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
             }
 
-            const filteredData1 = data.filter(user => user.id === "1");
+            const filteredData1 = data.filter(user => user.nombre === "java");
 
             let plantilla = `
             <thead>

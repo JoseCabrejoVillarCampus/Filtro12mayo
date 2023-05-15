@@ -65,6 +65,12 @@ export default class myTabla extends HTMLElement {
         let wsb = new Worker("../config/ws.js", {
             type: "module"
         });
+        let wsc = new Worker("../config/ws.js", {
+            type: "module"
+        });
+        let wsd = new Worker("../config/ws.js", {
+            type: "module"
+        });
         let data = Object.fromEntries(new FormData(e.target));
         const {
             valor
@@ -80,6 +86,14 @@ export default class myTabla extends HTMLElement {
             });
         } else if (valor === "get3") {
             wsb.postMessage({
+                type: GET_RECLUTA_ALL,
+            })
+        } else if (valor === "get4") {
+            wsc.postMessage({
+                type: GET_RECLUTA_ALL,
+            })
+        } else if (valor === "get5") {
+            wsd.postMessage({
                 type: GET_RECLUTA_ALL,
             })
         } else if (valor === "post") {
@@ -114,6 +128,14 @@ export default class myTabla extends HTMLElement {
         });
         wsb.addEventListener("message", (e) => {
             this.displayDataInTable3(e.data);
+            wsb.terminate();
+        });
+        wsc.addEventListener("message", (e) => {
+            this.displayDataInTable4(e.data);
+            wsb.terminate();
+        });
+        wsd.addEventListener("message", (e) => {
+            this.displayDataInTable5(e.data);
             wsb.terminate();
         });
     }
@@ -173,8 +195,12 @@ export default class myTabla extends HTMLElement {
                 throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
             }
 
-            const filteredData = data.filter(user => user.fecha_de_ingreso <= "2014-12-01");
-
+            const filteredData = data.filter(user => {
+                const fechaIngreso = new Date(user.fecha_de_ingreso);
+                const fechaActual = new Date();
+                const tresMesesAtras = new Date(fechaActual.getFullYear(), fechaActual.getMonth() - 3, fechaActual.getDate());
+                return fechaIngreso >= tresMesesAtras && fechaIngreso <= fechaActual;
+            });
             let plantilla = `
             <thead>
             <tr>
@@ -242,6 +268,104 @@ export default class myTabla extends HTMLElement {
 
 
             filteredData1.forEach((user) => {
+                plantilla += `
+            <tr>
+            <th>${user.id}</th>
+            <th>${user.nombre}</th>
+            <th>${user.edad}</th>
+            <th>${user.email}</th>
+            <th>${user.direccion}</th>
+            <th>${user.fecha_de_nacimiento}</th>
+            <th>${user.numero_de_identificacion}</th>
+            <th>${user.fecha_de_ingreso_al_programa}</th>
+            <th>${user.teamId}</th>
+
+        </tr> 
+            `;
+                tableBody.innerHTML = plantilla;
+            });
+        } catch (error) {}
+
+    }
+    async displayDataInTable4(data) {
+        try {
+            await this.content()
+            const tableBody = this.shadowRoot.querySelector("#myData");
+            /* tableBody.innerHTML = ""; */
+
+            if (!Array.isArray(data)) {
+                throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
+            }
+
+            const filteredData2 = data.filter(user => user.teamId === "2");
+
+            let plantilla = `
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Email</th>
+                    <th>Direccion</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Numero de Identificacion</th>
+                    <th>Fecha de Ingreso</th>
+                    <th>Id Team</th>
+                </tr>
+            </thead>
+        `;
+
+
+            filteredData2.forEach((user) => {
+                plantilla += `
+            <tr>
+            <th>${user.id}</th>
+            <th>${user.nombre}</th>
+            <th>${user.edad}</th>
+            <th>${user.email}</th>
+            <th>${user.direccion}</th>
+            <th>${user.fecha_de_nacimiento}</th>
+            <th>${user.numero_de_identificacion}</th>
+            <th>${user.fecha_de_ingreso_al_programa}</th>
+            <th>${user.teamId}</th>
+
+        </tr> 
+            `;
+                tableBody.innerHTML = plantilla;
+            });
+        } catch (error) {}
+
+    }
+    async displayDataInTable5(data) {
+        try {
+            await this.content()
+            const tableBody = this.shadowRoot.querySelector("#myData");
+            /* tableBody.innerHTML = ""; */
+
+            if (!Array.isArray(data)) {
+                throw new Error("Datos inválidos proporcionados. Se esperaba un array.");
+            }
+
+            const filteredData3 = data.filter(user => user.teamId === "1");
+
+            let plantilla = `
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Email</th>
+                    <th>Direccion</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Numero de Identificacion</th>
+                    <th>Fecha de Ingreso</th>
+                    <th>Id Team</th>
+                </tr>
+            </thead>
+        `;
+
+
+            filteredData3.forEach((user) => {
                 plantilla += `
             <tr>
             <th>${user.id}</th>

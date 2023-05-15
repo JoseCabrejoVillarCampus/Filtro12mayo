@@ -1,71 +1,114 @@
-<div class="container-fluid">
-    <div><h1>Modulo SKILL</h1></div>
-    <div><form class="container" id="myForm">
-        <input type="text" name="id" placeholder="Ingrese el Id"><br><br>
-        <input type="text" name="nombre" placeholder="Ingrese el Nombre"><br><br>
-        <input type="text" name="id_skill" placeholder="Ingrese el Id de la skill"><br><br>
+<div>
+    <h1>MODULO</h1>
+  </div>
+  <div  id="pri">
+    <form class="container d-flex " id="myForm">
+      <div>
+        <input type="text" name="id" placeholder="Ingrese el Id" /><br /><br />
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Ingrese el Nombre"
+          /><br /><br />
+          <input
+            type="text"
+            name="trainer_asociado"
+            placeholder="Ingrese Nombre del Trainner"
+          /><br /><br />
     
-        <input type="submit" data-valor="post" value="Enviar">
-        <input type="submit" data-valor="get" value="obtener">
-        <input type="submit" data-valor="get2" value="id">
-        <input type="submit" data-valor="get3" value="obtener">
-        <input type="submit" data-valor="put" value="actualizar">
-        <input type="submit" data-valor="delete" value="eliminar"><br><br>
-    </form><br></div>
-
-    <div><table id="myTable">
-        <thead>
-            <tr>
-            
-            </tr>
-        </thead>
-        <tbody id="myData"></tbody>
-    </table></div>
-</div>
-
-
-<!-- <form class="container" id="busqueda">
-    <input type="text" name="searchTerm" placeholder="A quien buscamos?">
+          <button type="submit" data-valor="post" value="Enviar">
+            <img id="imagen" src="../img/star-wars-logo-icon-9.jpg" alt="" srcset="" /><br>Enviar
+          </button>
+          <button type="submit" data-valor="get" value="obtener">
+            <img id="imagen" src="../img/star-wars-logo-icon-9.jpg" alt="" srcset="" /><br>Obtener
+          </button>
+          <button type="submit" data-valor="get2" value="obtener">
+            <img id="imagen" src="../img/star-wars-logo-icon-9.jpg" alt="" srcset="" /><br>Id
+          </button>
+          <button type="submit" data-valor="get3" value="obtener">
+            <img id="imagen" src="../img/star-wars-logo-icon-9.jpg" alt="" srcset="" /><br>Nombre
+          </button>
+          <button type="submit" data-valor="put" value="actualizar">
+            <img id="imagen" src="../img/star-wars-logo-icon-9.jpg" alt="" srcset="" /><br>Actualizar
+          </button>
+          <button type="submit" data-valor="delete" value="eliminar">
+            <img id="imagen" src="../img/star-wars-logo-icon-9.jpg" alt="" srcset="" /><br>Eliminar</button><br /><br />
+      </div>
+      
+    </form>
+    <br />
+  </div>
+  <div class="conteiner">
+    <table id="myTable">
+      <thead>
+        <tr>
+        </tr>
+      </thead>
+      <tbody id="myData"></tbody>
+    </table>
+  </div>
+  
+  <!-- <form class="container" id="busqueda">
+    
     <input type="submit" data-valor="search" value="buscar">
-</form><br>
--->
-<style>
-    div{
-        display: flex;
-        flex-direction:column;
-        justify-content: center;
-        align-items: center;
+  </form><br> -->
+  </div>
+  
+  <style>
+    h1{
+      margin-top: 70px;
     }
-    tbody{
-        
-        text-align: center;
+    div { 
+      padding: 50px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
     }
-    tbody{
-        
-        text-align: center;
+  
+    #myTable {
+      padding: 3%;
     }
-    th,td{
-    border: solid 3px white;
-    border-radius: 3%;
-}
-h4{
-    text-shadow: 3px 3px 2px rgb(248, 0, 0);
+  
+    tbody {
+      text-align: center;
+      padding: 3%;
     }
-    input, .box{
-    background-color: black;
-    color: rgb(248, 248, 248);
-    box-shadow: 0 0 20px rgb(83, 197, 217);
-    font-weight: bold;
-}
-#imagen {
-    width: 55px;
-    height: auto;
-    
+  
+    th,
+    td {
+      border: solid 3px white;
+      border-radius: 3%;
+    }
+  
+    h1 {
+      text-shadow: 3px 3px 2px rgb(248, 0, 0);
+    }
+  
+    input,
+    .box {
+      background-color: black;
+      color: rgb(248, 248, 248);
+      box-shadow: 0 0 20px rgb(83, 197, 217);
+      font-weight: bold;
+      padding: 3%;
+    }
+  
+    #imagen {
+      width: 35px;
+      height: auto;
+  
+    }
+  
+    button {
+      margin-top: 10px;
+      background-color: rgba(240, 248, 255, 0);
+      border: none;
+      color: aliceblue
+    }
+    #myForm{
+      display: flex ;
+      flex-direction: row;
+      justify-content: space-between;
   }
-  button{
-    margin-top: 10px;
-    background-color: rgba(240, 248, 255, 0);
-    border: none;
-    color:aliceblue
-  }
-</style>
+  </style>
